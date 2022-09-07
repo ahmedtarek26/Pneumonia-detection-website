@@ -61,4 +61,4 @@ else:
             st.write("Person is Affected By PNEUMONIA")
         else:
             st.write("Person is Normal")
-        # st.write(label)
+            st.balloons()
