@@ -14,7 +14,7 @@ app = Flask(__name__)
 
 
 def predict_label(img_path):
-    model = load_model('models\chest_xray_resnet.h5')
+    model = load_model('E:\projects\Pneumonia-detection-website\Website\models\chest_xray_resnet.h5')
     image = load_img(img_path, target_size=(224, 224))
     # convert the image pixels to a numpy array
     image = img_to_array(image)
@@ -27,7 +27,12 @@ def predict_label(img_path):
     # predict the probability across all output classes
     yhat = model.predict(image)
     result = int(yhat[0][1])
-    return result
+
+    if result == 0:
+        pr = "Person is Affected By PNEUMONIA"
+    else:
+        pr = "Person is Normal"
+    return pr
 
 
 # Flask
@@ -49,12 +54,9 @@ def get_output():
 
         img_path = "static/" + img.filename
         img.save(img_path)
+        pr = predict_label(img_path)
 
-        p = predict_label(img_path)
-        if p == 0:
-            pr = "Person is Affected By PNEUMONIA"
-        else:
-            pr = "Person is Normal"
+
 
     return render_template("index.html", prediction=pr, img_path=img_path)
 
