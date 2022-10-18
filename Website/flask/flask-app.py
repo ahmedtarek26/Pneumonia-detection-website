@@ -14,7 +14,7 @@ app = Flask(__name__)
 
 
 def predict_label(img_path):
-    model = load_model('E:\projects\Pneumonia-detection-website\Website\models\chest_xray_resnet.h5')
+    model = load_model('E:\projects\Pneumonia-detection-website\Website\models\covid_vgg.h5')
     image = load_img(img_path, target_size=(224, 224))
     # convert the image pixels to a numpy array
     image = img_to_array(image)
@@ -25,14 +25,14 @@ def predict_label(img_path):
     # prepare the image for the VGG model only
     # image = preprocess_input(image)
     # predict the probability across all output classes
-    yhat = model.predict(image)
-    result = int(yhat[0][1])
+    pred = model.predict(image)
 
-    if result == 0:
-        pr = "Person is Affected By PNEUMONIA"
+    print(np.argmax(pred, axis=1)[0])
+    if np.argmax(pred, axis=1)[0] == 1:
+        res = 'Prediction: Non_Covid-19'
     else:
-        pr = "Person is Normal"
-    return pr
+        res = 'Prediction: Covid-19'
+    return res
 
 
 # Flask
