@@ -7,7 +7,7 @@ from keras.applications.vgg16 import preprocess_input, decode_predictions
 from keras.preprocessing import image
 
 def predict(image1):
-    model = load_model('/models/chest_xray_vgg.h5')
+    model = load_model('chest_xray_vgg.h5')
     image = load_img(image1, target_size=(224, 224))
     # convert the image pixels to a numpy array
     image = img_to_array(image)
