@@ -3,7 +3,7 @@ import numpy as np
 from keras.models import load_model
 from keras_preprocessing.image import load_img
 from keras_preprocessing.image import img_to_array
-from keras.applications.vgg16 import preprocess_input
+from keras.applications.vgg16 import preprocess_input, decode_predictions
 from keras.preprocessing import image
 
 def predict(image1):
@@ -21,9 +21,9 @@ def predict(image1):
     yhat = model.predict(image)
     # st.write(yhat)
     # convert the probabilities to class labels
-    # label = decode_predictions(yhat)
+    label = decode_predictions(yhat)
     # retrieve the most likely result, e.g. highest probability
-    label = int(yhat[0][1])
+    # label = int(yhat[0][1])
     return label
 
 
